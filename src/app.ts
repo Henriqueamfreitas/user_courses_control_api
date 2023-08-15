@@ -1,13 +1,13 @@
 import express, { Application, json } from "express"
 import "dotenv/config"
-import { createUserController } from "./controllers/users.controllers"
 import { error } from "./middlewares/handle.middleware";
+import { usersRouter } from "./routers/users.routers";
 
 
 const app: Application = express()
 app.use(json())
 
-app.use('/users', createUserController)
+app.use('/users', usersRouter)
 
 app.use(error)
 

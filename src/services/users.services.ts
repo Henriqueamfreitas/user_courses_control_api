@@ -5,6 +5,7 @@ import {
     UserInterface, UserCreateInterface, UserResultInterface 
 } from "../interfaces/users.interfaces"
 import { AppError } from "../errors/error"
+import { userReturnSchema } from "../schemas/user.schema"
 
 
 const createUserService = async (payload: any) => {
@@ -23,7 +24,7 @@ const createUserService = async (payload: any) => {
 
         const queryResult: UserResultInterface = await client.query(queryConfig)
 
-        return queryResult.rows[0]
+        return userReturnSchema.parse(queryResult.rows[0])
     }
     const queryString: string = `
         INSERT INTO users("name", "email", "password", "admin")
@@ -38,7 +39,7 @@ const createUserService = async (payload: any) => {
 
     const queryResult: UserResultInterface = await client.query(queryConfig)
 
-    return queryResult.rows[0]
+    return userReturnSchema.parse(queryResult.rows[0])
 }
 
 export { createUserService }
