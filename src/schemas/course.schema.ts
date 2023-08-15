@@ -8,7 +8,6 @@ const courseSchema = z.object({
 })
 
 const courseCreateSchema = courseSchema.omit({ id: true })
-// const courseReturnSchema = courseSchema.omit({ password: true })
 const courseReturnManySchema = courseSchema.array()
 
 export {

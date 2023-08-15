@@ -4,7 +4,6 @@ import format from "pg-format"
 import { 
     UserInterface, UserCreateInterface, UserResultInterface 
 } from "../interfaces/users.interfaces"
-import { AppError } from "../errors/error"
 import { userReturnSchema } from "../schemas/user.schema"
 
 

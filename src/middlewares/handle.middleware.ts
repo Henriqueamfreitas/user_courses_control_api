@@ -1,7 +1,7 @@
 import 'express-async-errors'
 import { NextFunction, Request, Response } from "express";
 import { AppError } from '../errors/error';
-import { ZodError, ZodTypeAny } from "zod"
+import { ZodError } from "zod"
 
 
 const error = (
