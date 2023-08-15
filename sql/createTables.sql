@@ -27,6 +27,9 @@
     VALUES ('teste3', 'teste3@mail.com', '12345', false)
     RETURNING "users"."id", "users"."name", "users"."email", "users"."admin";
 
+    INSERT INTO courses("name", "description")
+    VALUES ('teste3', 'teste3description')
+    RETURNING *;
 
 -- Getting values from the table
     SELECT * FROM users;
