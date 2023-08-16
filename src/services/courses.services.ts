@@ -1,4 +1,4 @@
-import { QueryConfig } from "pg"
+import { QueryConfig, Client } from "pg"
 import { client } from "../database"
 import format from "pg-format"
 import { courseSchema, courseReturnManySchema } from "../schemas/course.schema"
@@ -37,5 +37,23 @@ const getAllCoursesService = async (user: any): Promise<any> => {
     return courseReturnManySchema.parse(allCourses)
 }
 
+const assignUserToCourseService = async (payload: any) => {
+    const { params } = payload
 
-export { createCourseService, getAllCoursesService }
+    const queryString: string = `
+        INSERT INTO "userCourses"("userId", "courseId")
+        VALUES($1, $2)
+        RETURNING *;  
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [params.userId, params.courseId],
+    }
+
+    const queryResult: CourseResultInterface = await client.query(queryConfig)
+    
+    return queryResult.rows
+}
+
+export { createCourseService, getAllCoursesService, assignUserToCourseService }

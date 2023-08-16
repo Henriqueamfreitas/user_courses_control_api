@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { CourseCreateInterface } from "../interfaces/courses.interfaces"
-import { createCourseService, getAllCoursesService } from "../services/courses.services"
+import { createCourseService, getAllCoursesService, assignUserToCourseService } from "../services/courses.services"
 
 
 const createCourseController = async (req: Request, res: Response): Promise<Response> => {
@@ -19,5 +19,15 @@ const getAllCoursesController = async (req: Request, res: Response): Promise<Res
     return res.status(200).json(allCourses)
 }
 
+const assignUserToCourseController = async (req: Request, res: Response): Promise<Response> => {
+    const payload: Request = req
+        
+    await assignUserToCourseService(payload)
+    const message = {
+        message: "User successfully vinculed to course"
+    }
 
-export { createCourseController, getAllCoursesController }
+    return res.status(201).json(message)
+}
+
+export { createCourseController, getAllCoursesController, assignUserToCourseController }

@@ -5,6 +5,7 @@ import { AppError } from "../errors/error"
 import { UserInterface, UserCreateInterface, UserResultInterface } from "../interfaces/users.interfaces"
 import "dotenv/config"
 import { verify } from "jsonwebtoken"
+import { CourseInterface, CourseResultInterface } from "../interfaces/courses.interfaces"
 
 const ensureNoEmailDuplicatesMiddleWare = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
@@ -39,5 +40,47 @@ const ensureTokenIsAdminMiddleWare = ( req: Request, res: Response, next: NextFu
     return next()
 }
 
+const ensureUserIdAndCourseIdExistsMiddleWare = async (
+    req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
+    const userId: string = req.params.userId
+    const queryString: string = `
+        SELECT * FROM "users";
+    `
+    
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    }
+    
+    const queryResult: UserResultInterface = await client.query(queryConfig)
+    const users: UserInterface[] = queryResult.rows
 
-export { ensureNoEmailDuplicatesMiddleWare, ensureTokenIsAdminMiddleWare }
+    const thisUserIdExists: number= users.findIndex(element => element.id === Number(userId))
+
+
+    const CourseId: string = req.params.courseId
+    const queryStringCourse: string = `
+        SELECT * FROM "courses";
+    `
+    
+    const queryConfigCourse: QueryConfig = {
+        text: queryStringCourse,
+    }
+    
+    const queryResultCourse: CourseResultInterface = await client.query(queryConfigCourse)
+    const courses: CourseInterface[] = queryResultCourse.rows
+
+    const thisCourseIdExists: number= courses.findIndex(element => element.id === Number(CourseId))
+
+
+    if(((thisUserIdExists === -1) && (users.length>0)) || ((thisCourseIdExists === -1) && (courses.length>0))){
+        throw new AppError("User/course not found", 404)
+    }
+
+    res.locals.thisUserIdExists = thisUserIdExists
+
+    return next()
+}
+
+
+export { ensureNoEmailDuplicatesMiddleWare, ensureTokenIsAdminMiddleWare, ensureUserIdAndCourseIdExistsMiddleWare 
+}
