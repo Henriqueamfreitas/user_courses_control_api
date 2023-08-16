@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createUserService } from "../services/users.services"
+import { createUserService} from "../services/users.services"
 import { UserCreateInterface, iToken } from "../interfaces/users.interfaces"
 
 

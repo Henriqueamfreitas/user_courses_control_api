@@ -10,4 +10,5 @@ const usersRouter: Router = Router()
 usersRouter.post('/', ensureNoEmailDuplicatesMiddleWare, validateBodyMiddleware(userCreateSchema), 
 createUserController)
 
+
 export { usersRouter }
