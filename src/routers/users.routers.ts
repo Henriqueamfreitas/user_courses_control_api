@@ -7,6 +7,7 @@ import { userCreateSchema } from "../schemas/user.schema";
 
 const usersRouter: Router = Router()
 
-usersRouter.post('/', ensureNoEmailDuplicatesMiddleWare, validateBodyMiddleware(userCreateSchema), createUserController)
+usersRouter.post('/', ensureNoEmailDuplicatesMiddleWare, validateBodyMiddleware(userCreateSchema), 
+createUserController)
 
 export { usersRouter }

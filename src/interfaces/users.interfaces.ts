@@ -11,6 +11,10 @@ interface UserInterface{
 type UserCreateInterface = Omit<UserInterface, 'id'>
 type UserResultInterface = QueryResult<UserInterface>
 
+interface iToken {
+    token: string
+}
+
 export {
-    UserInterface, UserCreateInterface, UserResultInterface
+    UserInterface, UserCreateInterface, UserResultInterface, iToken
 }
