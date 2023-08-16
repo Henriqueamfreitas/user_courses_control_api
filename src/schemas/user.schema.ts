@@ -18,7 +18,7 @@ const userSchema = z.object({
 const userCreateSchema = userSchema.omit({ id: true })
 const userReturnSchema = userSchema.omit({ password: true })
 const userLoginSchema = userSchema.omit({ id: true, name: true, admin: true })
-const userReturnManySchema = userSchema.array()
+const userReturnManySchema = userReturnSchema.array()
 
 export {
     userSchema,

@@ -4,12 +4,10 @@ import format from "pg-format"
 import { 
     UserInterface, UserCreateInterface, UserResultInterface 
 } from "../interfaces/users.interfaces"
-import { userReturnSchema } from "../schemas/user.schema"
+import { userReturnSchema, userReturnManySchema } from "../schemas/user.schema"
 import { hashSync, compareSync } from "bcryptjs"
 import { AppError } from "../errors/error"
 import { sign } from "jsonwebtoken"
-
-
 
 const createUserService = async (payload: any) => {
     payload.password = hashSync(payload.password, 12) 
@@ -46,5 +44,19 @@ const createUserService = async (payload: any) => {
     return userReturnSchema.parse(queryResult.rows[0])
 }
 
+const getAllUsersService = async (user: any): Promise<any> => {
+    const queryString: string = `
+    SELECT "users"."id", "users"."name", "users"."email", "users"."admin" FROM "users";
+    `
 
-export { createUserService }
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    } 
+    const queryResult: UserResultInterface = await client.query(queryConfig)
+    const allUsers: UserInterface[] = queryResult.rows
+
+    return userReturnManySchema.parse(allUsers)
+}
+
+
+export { createUserService, getAllUsersService }
