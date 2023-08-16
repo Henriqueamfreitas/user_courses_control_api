@@ -34,6 +34,18 @@
     -- INSERT INTO "userCourses"("active", "userId", "courseId")
     -- VALUES(true, 1, 1);  
 
+        -- SELECT
+        -- "c"."id" "courseId", "c"."name" "courseName", "c"."description" "courseDescription",
+        -- "uc"."active" "userActiveInCourse", "u"."id" "userId", "u"."name" "userName"
+        -- FROM
+        --     "courses" "c"
+        -- JOIN
+        --     "userCourses" "uc" ON
+        --     "c"."id" = "uc"."courseId"
+        -- JOIN
+        --     "users" "u" ON
+        --     "uc"."userId" = "u"."id";
+
 -- -- Getting values from the table
 --     SELECT * FROM users;
 
@@ -42,7 +54,7 @@
 --     SELECT * FROM userCourses;
 
 -- -- Reseting Tables
-    -- DROP TABLE userCourses;
+    -- DROP TABLE "userCourses";
     -- DROP TABLE courses;
     -- DROP TABLE users;
     -- CREATE TABLE IF NOT EXISTS "users"(

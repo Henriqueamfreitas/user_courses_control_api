@@ -20,10 +20,24 @@ const userReturnSchema = userSchema.omit({ password: true })
 const userLoginSchema = userSchema.omit({ id: true, name: true, admin: true })
 const userReturnManySchema = userReturnSchema.array()
 
+const userCoursesSchema = z.object({
+    courseId: z.number().positive().int(),
+    courseName: z.string().max(50),
+    courseDescription: z.string(),
+    userActiveInCourse: z.boolean(),
+    userId: z.number().positive().int(),
+    userName: z.string().max(50),
+})
+
+const userCoursesReturnManySchema = userCoursesSchema.array()
+
+
 export {
     userSchema,
     userCreateSchema,
     userReturnSchema,
     userLoginSchema,
-    userReturnManySchema
+    userReturnManySchema,
+    userCoursesSchema,
+    userCoursesReturnManySchema
 }

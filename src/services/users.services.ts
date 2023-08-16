@@ -2,9 +2,10 @@ import { QueryConfig } from "pg"
 import { client } from "../database"
 import format from "pg-format"
 import { 
-    UserInterface, UserCreateInterface, UserResultInterface 
+    UserInterface, UserCreateInterface, UserResultInterface, UserCoursesInterface,
+    UserCoursesCreateInterface, UserCoursesResultInterface 
 } from "../interfaces/users.interfaces"
-import { userReturnSchema, userReturnManySchema } from "../schemas/user.schema"
+import { userReturnSchema, userReturnManySchema, userCoursesReturnManySchema } from "../schemas/user.schema"
 import { hashSync, compareSync } from "bcryptjs"
 import { AppError } from "../errors/error"
 import { sign } from "jsonwebtoken"
@@ -58,5 +59,33 @@ const getAllUsersService = async (user: any): Promise<any> => {
     return userReturnManySchema.parse(allUsers)
 }
 
+const getUserCoursesService = async (payload: any) => {
+    const { params } = payload
+    
+    const queryString: string = `
+    SELECT
+    "c"."id" "courseId", "c"."name" "courseName", "c"."description" "courseDescription",
+    "uc"."active" "userActiveInCourse", "u"."id" "userId", "u"."name" "userName"
+    FROM
+        "courses" "c"
+    JOIN
+        "userCourses" "uc" ON
+        "c"."id" = "uc"."courseId"
+    JOIN
+        "users" "u" ON
+        "uc"."userId" = "u"."id"
+    WHERE "u"."id" = $1;
+    `
 
-export { createUserService, getAllUsersService }
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [params.id]
+    } 
+    const queryResult: UserCoursesResultInterface = await client.query(queryConfig)
+    const allCoursesFromUser: UserCoursesInterface[] = queryResult.rows
+
+    return userCoursesReturnManySchema.parse(allCoursesFromUser)
+}
+
+
+export { createUserService, getAllUsersService, getUserCoursesService }

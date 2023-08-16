@@ -14,7 +14,11 @@ coursesRouter.use(token)
 coursesRouter.post('/', ensureTokenIsAdminMiddleWare, validateBodyMiddleware(courseCreateSchema), 
 createCourseController)
 coursesRouter.post(
-    '/:courseId/users/:userId', ensureTokenIsAdminMiddleWare, ensureUserIdAndCourseIdExistsMiddleWare,
-assignUserToCourseController)
+    '/:courseId/users/:userId', 
+    ensureTokenIsAdminMiddleWare, 
+    ensureUserIdAndCourseIdExistsMiddleWare,
+    assignUserToCourseController
+)
+
 
 export { coursesRouter }

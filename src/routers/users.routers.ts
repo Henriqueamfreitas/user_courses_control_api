@@ -1,6 +1,7 @@
 import { Router } from "express";
 import "dotenv/config";
-import { createUserController, getAllUsersController } from "../controllers/users.controllers";
+import { createUserController, getAllUsersController, getUserCoursesController 
+} from "../controllers/users.controllers";
 import { ensureNoEmailDuplicatesMiddleWare } from "../middlewares/verify.middleware";
 import { validateBodyMiddleware, token } from "../middlewares/validateBody.middleware";
 import { userCreateSchema } from "../schemas/user.schema";
@@ -13,5 +14,6 @@ createUserController)
 
 usersRouter.use(token)
 usersRouter.get('/', ensureTokenIsAdminMiddleWare, getAllUsersController)
+usersRouter.get('/:id/courses', ensureTokenIsAdminMiddleWare, getUserCoursesController)
 
 export { usersRouter }

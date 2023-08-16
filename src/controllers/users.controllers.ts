@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
-import { createUserService, getAllUsersService} from "../services/users.services"
+import { createUserService, getAllUsersService, getUserCoursesService} from "../services/users.services"
 import { UserCreateInterface, iToken } from "../interfaces/users.interfaces"
+import { AppError } from "../errors/error"
 
 
 const createUserController = async (req: Request, res: Response): Promise<Response> => {
@@ -19,4 +20,15 @@ const getAllUsersController = async (req: Request, res: Response): Promise<Respo
     return res.status(200).json(allUsers)
 }
 
-export { createUserController, getAllUsersController }
+const getUserCoursesController = async (req: Request, res: Response): Promise<Response> => {
+    const payload:Request = req
+        
+    const userCourses = await getUserCoursesService(payload)
+    if(userCourses.length === 0){
+        throw new AppError("No course found", 404)
+    }
+
+    return res.status(200).json(userCourses)
+}
+
+export { createUserController, getAllUsersController, getUserCoursesController }
