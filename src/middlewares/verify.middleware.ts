@@ -33,7 +33,7 @@ const ensureNoEmailDuplicatesMiddleWare = async (
 const ensureTokenIsAdminMiddleWare = ( req: Request, res: Response, next: NextFunction): void => {
     const { sub, admin } = res.locals.decoded
     if(!admin){
-        throw new AppError("Insufficient permission", 401)
+        throw new AppError("Insufficient permission", 403)
     }
     
     return next()
