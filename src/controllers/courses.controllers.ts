@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { CourseCreateInterface } from "../interfaces/courses.interfaces"
-import { createCourseService } from "../services/courses.services"
+import { createCourseService, getAllCoursesService } from "../services/courses.services"
 
 
 const createCourseController = async (req: Request, res: Response): Promise<Response> => {
@@ -11,4 +11,13 @@ const createCourseController = async (req: Request, res: Response): Promise<Resp
     return res.status(201).json(course)
 }
 
-export { createCourseController }
+const getAllCoursesController = async (req: Request, res: Response): Promise<Response> => {        
+    const payload:Request = req
+
+    const allCourses = await getAllCoursesService(payload)
+
+    return res.status(200).json(allCourses)
+}
+
+
+export { createCourseController, getAllCoursesController }

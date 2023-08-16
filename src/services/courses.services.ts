@@ -1,7 +1,7 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
 import format from "pg-format"
-import { courseSchema } from "../schemas/course.schema"
+import { courseSchema, courseReturnManySchema } from "../schemas/course.schema"
 import { CourseInterface, CourseCreateInterface, CourseResultInterface } from "../interfaces/courses.interfaces"
 
 
@@ -23,4 +23,19 @@ const createCourseService = async (payload: any) => {
     return courseSchema.parse(queryResult.rows[0])
 }
 
-export { createCourseService }
+const getAllCoursesService = async (user: any): Promise<any> => {
+    const queryString: string = `
+    SELECT * FROM "courses";
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+    } 
+    const queryResult: CourseResultInterface = await client.query(queryConfig)
+    const allCourses: CourseInterface[] = queryResult.rows
+
+    return courseReturnManySchema.parse(allCourses)
+}
+
+
+export { createCourseService, getAllCoursesService }
