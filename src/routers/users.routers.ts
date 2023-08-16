@@ -4,6 +4,7 @@ import { createUserController, getAllUsersController } from "../controllers/user
 import { ensureNoEmailDuplicatesMiddleWare } from "../middlewares/verify.middleware";
 import { validateBodyMiddleware, token } from "../middlewares/validateBody.middleware";
 import { userCreateSchema } from "../schemas/user.schema";
+import { ensureTokenIsAdminMiddleWare } from "../middlewares/verify.middleware";
 
 const usersRouter: Router = Router()
 
@@ -11,6 +12,6 @@ usersRouter.post('/', ensureNoEmailDuplicatesMiddleWare, validateBodyMiddleware(
 createUserController)
 
 usersRouter.use(token)
-usersRouter.get('/', getAllUsersController)
+usersRouter.get('/', ensureTokenIsAdminMiddleWare, getAllUsersController)
 
 export { usersRouter }

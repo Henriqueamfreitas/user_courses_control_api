@@ -27,8 +27,9 @@ const token = (req: Request, res: Response, next: NextFunction): void => {
             throw new AppError(error.message, 401)
         }
 
-        res.locals.email = decoded.email
-        res.locals.id = decoded.id
+        // res.locals.email = decoded.email
+        // res.locals.id = decoded.id
+        res.locals = { ...res.locals, decoded };
     })
     
     return next()
