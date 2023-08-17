@@ -56,4 +56,24 @@ const assignUserToCourseService = async (payload: any) => {
     return queryResult.rows
 }
 
-export { createCourseService, getAllCoursesService, assignUserToCourseService }
+const updateUserCourseStatusService = async (payload: any) => {
+    const { body, params } = payload
+
+    const queryString: string = `
+        DELETE FROM "userCourses"
+        WHERE "userId" = $1 AND "courseId" = $2
+        RETURNING *;
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [params.userId, params.courseId]
+    }
+    
+    const queryResult: CourseResultInterface = await client.query(queryConfig)
+    const updatedUserCourse: CourseInterface = queryResult.rows[0]
+    
+    return updatedUserCourse
+}
+
+export { createCourseService, getAllCoursesService, assignUserToCourseService, updateUserCourseStatusService }
