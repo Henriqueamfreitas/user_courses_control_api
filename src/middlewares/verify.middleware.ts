@@ -1,11 +1,20 @@
-import { NextFunction, Request, Response } from "express"
 import { QueryConfig } from "pg"
+import { 
+    NextFunction, 
+    Request, 
+    Response 
+} from "express"
 import { client } from "../database"
 import { AppError } from "../errors/error"
-import { UserInterface, UserCreateInterface, UserResultInterface } from "../interfaces/users.interfaces"
+import { 
+    UserInterface, 
+    UserResultInterface 
+} from "../interfaces/users.interfaces"
 import "dotenv/config"
-import { verify } from "jsonwebtoken"
-import { CourseInterface, CourseResultInterface } from "../interfaces/courses.interfaces"
+import { 
+    CourseInterface, 
+    CourseResultInterface 
+} from "../interfaces/courses.interfaces"
 
 const ensureNoEmailDuplicatesMiddleWare = async (
     req: Request, res: Response, next: NextFunction): Promise<Response | void>  => {
@@ -82,5 +91,8 @@ const ensureUserIdAndCourseIdExistsMiddleWare = async (
 }
 
 
-export { ensureNoEmailDuplicatesMiddleWare, ensureTokenIsAdminMiddleWare, ensureUserIdAndCourseIdExistsMiddleWare 
+export { 
+    ensureNoEmailDuplicatesMiddleWare, 
+    ensureTokenIsAdminMiddleWare, 
+    ensureUserIdAndCourseIdExistsMiddleWare 
 }

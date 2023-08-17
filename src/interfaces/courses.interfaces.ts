@@ -9,6 +9,7 @@ interface CourseInterface{
 type CourseCreateInterface = Omit<CourseInterface, 'id'>
 type CourseResultInterface = QueryResult<CourseInterface>
 
+
 interface CourseUsersInterface{
     userId: number,
     userName: string,
@@ -23,6 +24,10 @@ type CourseUsersResultInterface = QueryResult<CourseUsersInterface>
 
 
 export {
-    CourseInterface, CourseCreateInterface, CourseResultInterface,
-    CourseUsersInterface, CourseUsersCreateInterface, CourseUsersResultInterface
+    CourseInterface, 
+    CourseCreateInterface, 
+    CourseResultInterface,
+    CourseUsersInterface, 
+    CourseUsersCreateInterface, 
+    CourseUsersResultInterface
 }

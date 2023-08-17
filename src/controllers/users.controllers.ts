@@ -1,7 +1,14 @@
-import { Request, Response } from "express"
-import { createUserService, getAllUsersService, getUserCoursesService} from "../services/users.services"
-import { UserCreateInterface, iToken } from "../interfaces/users.interfaces"
 import { AppError } from "../errors/error"
+import { 
+    Request, 
+    Response 
+} from "express"
+import { 
+    createUserService, 
+    getAllUsersService, 
+    getUserCoursesService
+} from "../services/users.services"
+import { UserCreateInterface } from "../interfaces/users.interfaces"
 
 
 const createUserController = async (req: Request, res: Response): Promise<Response> => {
@@ -31,4 +38,8 @@ const getUserCoursesController = async (req: Request, res: Response): Promise<Re
     return res.status(200).json(userCourses)
 }
 
-export { createUserController, getAllUsersController, getUserCoursesController }
+export { 
+    createUserController, 
+    getAllUsersController, 
+    getUserCoursesController 
+}

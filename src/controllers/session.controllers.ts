@@ -1,5 +1,8 @@
-import { Request, Response } from "express"
-import { UserCreateInterface, iToken } from "../interfaces/users.interfaces"
+import { iToken } from "../interfaces/users.interfaces"
+import { 
+    Request, 
+    Response 
+} from "express"
 import { loginService } from "../services/session.service"
 
 const loginController = async (req: Request, res: Response): Promise<Response> => {

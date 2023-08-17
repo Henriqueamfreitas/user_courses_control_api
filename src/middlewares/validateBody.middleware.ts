@@ -1,8 +1,12 @@
-import { NextFunction, Request, Response } from "express"
+import "dotenv/config"
+import { 
+    NextFunction, 
+    Request, 
+    Response 
+} from "express"
 import { ZodTypeAny } from "zod"
 import { AppError } from "../errors/error"
 import { verify } from "jsonwebtoken"
-import "dotenv/config"
 
 const validateBodyMiddleware = 
 (schema: ZodTypeAny) =>  
@@ -27,8 +31,6 @@ const token = (req: Request, res: Response, next: NextFunction): void => {
             throw new AppError(error.message, 401)
         }
 
-        // res.locals.email = decoded.email
-        // res.locals.id = decoded.id
         res.locals = { ...res.locals, decoded };
     })
     
@@ -36,4 +38,7 @@ const token = (req: Request, res: Response, next: NextFunction): void => {
 }
 
 
-export { validateBodyMiddleware, token }
+export { 
+    validateBodyMiddleware, 
+    token 
+}

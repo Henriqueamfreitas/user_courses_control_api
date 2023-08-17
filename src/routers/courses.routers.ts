@@ -1,6 +1,9 @@
 import { Router } from "express";
 import "dotenv/config";
-import { validateBodyMiddleware, token } from "../middlewares/validateBody.middleware";
+import { 
+    validateBodyMiddleware, 
+    token 
+} from "../middlewares/validateBody.middleware";
 import { courseCreateSchema } from "../schemas/course.schema";
 import { 
     createCourseController, 
@@ -9,15 +12,26 @@ import {
     deleteUserFromCourseController,
     getCourseUsersController 
 } from "../controllers/courses.controllers";
-import { ensureTokenIsAdminMiddleWare, ensureUserIdAndCourseIdExistsMiddleWare 
+import { 
+    ensureTokenIsAdminMiddleWare, 
+    ensureUserIdAndCourseIdExistsMiddleWare 
 } from "../middlewares/verify.middleware";
 
 const coursesRouter: Router = Router()
 
-coursesRouter.get('', getAllCoursesController)
+coursesRouter.get(
+    '', 
+    getAllCoursesController
+)
+
 coursesRouter.use(token)
-coursesRouter.post('/', ensureTokenIsAdminMiddleWare, validateBodyMiddleware(courseCreateSchema), 
-createCourseController)
+
+coursesRouter.post(
+    '/', 
+    ensureTokenIsAdminMiddleWare, 
+    validateBodyMiddleware(courseCreateSchema), 
+    createCourseController
+)
 coursesRouter.post(
     '/:courseId/users/:userId', 
     ensureTokenIsAdminMiddleWare, 
@@ -30,7 +44,6 @@ coursesRouter.delete(
     ensureUserIdAndCourseIdExistsMiddleWare,
     deleteUserFromCourseController
 )
-
 coursesRouter.get(
     '/:id/users', 
     ensureTokenIsAdminMiddleWare, 

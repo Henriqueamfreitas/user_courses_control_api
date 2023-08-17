@@ -9,11 +9,23 @@ import { ensureTokenIsAdminMiddleWare } from "../middlewares/verify.middleware";
 
 const usersRouter: Router = Router()
 
-usersRouter.post('/', ensureNoEmailDuplicatesMiddleWare, validateBodyMiddleware(userCreateSchema), 
-createUserController)
+usersRouter.post(
+    '/', 
+    ensureNoEmailDuplicatesMiddleWare, 
+    validateBodyMiddleware(userCreateSchema), 
+    createUserController
+)
 
 usersRouter.use(token)
-usersRouter.get('/', ensureTokenIsAdminMiddleWare, getAllUsersController)
-usersRouter.get('/:id/courses', ensureTokenIsAdminMiddleWare, getUserCoursesController)
+usersRouter.get(
+    '/', 
+    ensureTokenIsAdminMiddleWare, 
+    getAllUsersController
+)
+usersRouter.get(
+    '/:id/courses', 
+    ensureTokenIsAdminMiddleWare, 
+    getUserCoursesController
+)
 
 export { usersRouter }

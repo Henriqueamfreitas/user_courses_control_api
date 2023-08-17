@@ -1,11 +1,10 @@
-import { QueryConfig } from "pg"
 import { client } from "../database"
 import format from "pg-format"
 import { 
-    UserInterface, UserCreateInterface, UserResultInterface 
+    UserInterface,
+    UserResultInterface 
 } from "../interfaces/users.interfaces"
-import { userReturnSchema } from "../schemas/user.schema"
-import { hashSync, compareSync } from "bcryptjs"
+import { compareSync } from "bcryptjs"
 import { AppError } from "../errors/error"
 import { sign } from "jsonwebtoken"
 

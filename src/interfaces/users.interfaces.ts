@@ -29,6 +29,11 @@ type UserCoursesResultInterface = QueryResult<UserCoursesInterface>
 
 
 export {
-    UserInterface, UserCreateInterface, UserResultInterface, iToken,
-    UserCoursesInterface, UserCoursesCreateInterface, UserCoursesResultInterface
+    UserInterface, 
+    UserCreateInterface, 
+    UserResultInterface, 
+    iToken,
+    UserCoursesInterface, 
+    UserCoursesCreateInterface, 
+    UserCoursesResultInterface
 }

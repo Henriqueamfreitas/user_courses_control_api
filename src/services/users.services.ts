@@ -1,14 +1,18 @@
 import { QueryConfig } from "pg"
 import { client } from "../database"
-import format from "pg-format"
 import { 
-    UserInterface, UserCreateInterface, UserResultInterface, UserCoursesInterface,
-    UserCoursesCreateInterface, UserCoursesResultInterface 
+    UserInterface, 
+    UserResultInterface, 
+    UserCoursesInterface,
+    UserCoursesResultInterface 
 } from "../interfaces/users.interfaces"
-import { userReturnSchema, userReturnManySchema, userCoursesReturnManySchema } from "../schemas/user.schema"
-import { hashSync, compareSync } from "bcryptjs"
-import { AppError } from "../errors/error"
-import { sign } from "jsonwebtoken"
+import { 
+    userReturnSchema, 
+    userReturnManySchema, 
+    userCoursesReturnManySchema 
+} from "../schemas/user.schema"
+import { hashSync } from "bcryptjs"
+
 
 const createUserService = async (payload: any) => {
     payload.password = hashSync(payload.password, 12) 
@@ -88,4 +92,8 @@ const getUserCoursesService = async (payload: any) => {
 }
 
 
-export { createUserService, getAllUsersService, getUserCoursesService }
+export { 
+    createUserService, 
+    getAllUsersService, 
+    getUserCoursesService 
+}

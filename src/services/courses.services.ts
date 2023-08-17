@@ -1,10 +1,14 @@
-import { QueryConfig, Client } from "pg"
+import { QueryConfig } from "pg"
 import { client } from "../database"
-import format from "pg-format"
-import { courseSchema, courseReturnManySchema, courseUsersSchema, courseUsersReturnManySchema } from "../schemas/course.schema"
 import { 
-    CourseInterface, CourseCreateInterface, CourseResultInterface,
-    CourseUsersInterface, CourseUsersCreateInterface, CourseUsersResultInterface 
+    courseSchema, 
+    courseReturnManySchema 
+} from "../schemas/course.schema"
+import { 
+    CourseInterface, 
+    CourseResultInterface,
+    CourseUsersInterface, 
+    CourseUsersResultInterface 
 } from "../interfaces/courses.interfaces"
 
 

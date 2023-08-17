@@ -1,5 +1,8 @@
-import { Request, Response } from "express"
 import { CourseCreateInterface } from "../interfaces/courses.interfaces"
+import { 
+    Request, 
+    Response 
+} from "express"
 import { 
     createCourseService, 
     getAllCoursesService, 
