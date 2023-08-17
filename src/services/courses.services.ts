@@ -1,8 +1,11 @@
 import { QueryConfig, Client } from "pg"
 import { client } from "../database"
 import format from "pg-format"
-import { courseSchema, courseReturnManySchema } from "../schemas/course.schema"
-import { CourseInterface, CourseCreateInterface, CourseResultInterface } from "../interfaces/courses.interfaces"
+import { courseSchema, courseReturnManySchema, courseUsersSchema, courseUsersReturnManySchema } from "../schemas/course.schema"
+import { 
+    CourseInterface, CourseCreateInterface, CourseResultInterface,
+    CourseUsersInterface, CourseUsersCreateInterface, CourseUsersResultInterface 
+} from "../interfaces/courses.interfaces"
 
 
 const createCourseService = async (payload: any) => {
@@ -56,7 +59,7 @@ const assignUserToCourseService = async (payload: any) => {
     return queryResult.rows
 }
 
-const updateUserCourseStatusService = async (payload: any) => {
+const deleteUserFromCourseService = async (payload: any) => {
     const { body, params } = payload
 
     const queryString: string = `
@@ -76,4 +79,38 @@ const updateUserCourseStatusService = async (payload: any) => {
     return updatedUserCourse
 }
 
-export { createCourseService, getAllCoursesService, assignUserToCourseService, updateUserCourseStatusService }
+const getCourseUsersService = async (payload: any) => {
+    const { params } = payload
+    
+    const queryString: string = `
+    SELECT
+    "u"."id" "userId", "u"."name" "userName", "c"."id" "courseId", "c"."name" "courseName",
+    "c"."description" "courseDescription",  "uc"."active" "userActiveInCourse"
+    FROM
+        "courses" "c"
+    JOIN
+        "userCourses" "uc" ON
+        "c"."id" = "uc"."courseId"
+    JOIN
+        "users" "u" ON
+        "uc"."userId" = "u"."id"
+    WHERE "c"."id" = $1;
+    `
+
+    const queryConfig: QueryConfig = {
+        text: queryString,
+        values: [params.id]
+    } 
+    const queryResult: CourseUsersResultInterface = await client.query(queryConfig)
+    const allUsersFromCourse: CourseUsersInterface[] = queryResult.rows
+
+    return allUsersFromCourse
+}
+
+export { 
+    createCourseService, 
+    getAllCoursesService, 
+    assignUserToCourseService, 
+    deleteUserFromCourseService,
+    getCourseUsersService
+}

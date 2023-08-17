@@ -1,6 +1,11 @@
 import { Request, Response } from "express"
 import { CourseCreateInterface } from "../interfaces/courses.interfaces"
-import { createCourseService, getAllCoursesService, assignUserToCourseService, updateUserCourseStatusService 
+import { 
+    createCourseService, 
+    getAllCoursesService, 
+    assignUserToCourseService, 
+    deleteUserFromCourseService,
+    getCourseUsersService 
 } from "../services/courses.services"
 
 
@@ -31,16 +36,25 @@ const assignUserToCourseController = async (req: Request, res: Response): Promis
     return res.status(201).json(message)
 }
 
-const updateUserCourseStatusController = async (req: Request, res: Response): Promise<Response> => {
+const deleteUserFromCourseController = async (req: Request, res: Response): Promise<Response> => {
     const payload: Request = req
         
-    await updateUserCourseStatusService(payload)
+    await deleteUserFromCourseService(payload)
     return res.status(204).send()
+}
+
+const getCourseUsersController = async (req: Request, res: Response): Promise<Response> => {        
+    const payload:Request = req
+
+    const allUsersFromCourse = await getCourseUsersService(payload)
+
+    return res.status(200).json(allUsersFromCourse)
 }
 
 export { 
     createCourseController, 
     getAllCoursesController, 
     assignUserToCourseController, 
-    updateUserCourseStatusController 
+    deleteUserFromCourseController,
+    getCourseUsersController 
 }

@@ -6,7 +6,8 @@ import {
     createCourseController, 
     getAllCoursesController, 
     assignUserToCourseController, 
-    updateUserCourseStatusController 
+    deleteUserFromCourseController,
+    getCourseUsersController 
 } from "../controllers/courses.controllers";
 import { ensureTokenIsAdminMiddleWare, ensureUserIdAndCourseIdExistsMiddleWare 
 } from "../middlewares/verify.middleware";
@@ -27,7 +28,13 @@ coursesRouter.delete(
     '/:courseId/users/:userId', 
     ensureTokenIsAdminMiddleWare, 
     ensureUserIdAndCourseIdExistsMiddleWare,
-    updateUserCourseStatusController
+    deleteUserFromCourseController
+)
+
+coursesRouter.get(
+    '/:id/users', 
+    ensureTokenIsAdminMiddleWare, 
+    getCourseUsersController
 )
 
 
