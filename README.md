@@ -996,3 +996,6 @@ Você foi o desenvolvedor selecionado para implementar o MVP levando em conta o 
     "message": "Insufficient permission"
   }
   ```
+
+
+**Tecnologias**: Typescript, Insomnia, Mongo, node, express
